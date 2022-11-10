@@ -8,6 +8,7 @@ footer{
    width: 100%;
    text-align: center;
    padding: 0px;
+   z-index: 99;
 }
 </style>
 <p>© 2021 Experience day gift</p>

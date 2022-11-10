@@ -82,6 +82,9 @@ const init = () => {
 export default init;
 
 export const updateHeader = () => {
+  if(!Object.values(session || {}).length){
+    return
+  }
   const nav = document.querySelector("nav > ul");
   const menuIcon = document.createElement("li");
   menuIcon.setAttribute("id", "menu-icon");
@@ -89,7 +92,7 @@ export const updateHeader = () => {
     <span> &#9881; </span>
     <div id="menu">
         <a href="index.html">Change password</a>
-        <a href="login.html">Signout</a>
+        <a href="api/signout.php">Signout</a>
     </div>
     `;
   nav.appendChild(menuIcon);
