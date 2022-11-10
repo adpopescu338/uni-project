@@ -21,8 +21,6 @@ try {
 // check if connection error exists
 if ($conn->errorInfo()[0] != 0) {
    die("Connection failed: " . json_encode($conn->errorInfo()));
-}else{
-   // "Connected successfully\n";
 }
 
 

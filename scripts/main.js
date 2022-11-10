@@ -10,7 +10,7 @@ getSession().then(session=>{
 
 function getSession() {
   return new Promise((resolve) => {
-    fetch("/api/session.php")
+    fetch("api/session.php")
       .then((r) => r.json())
       .then((data) => {
         resolve(data);

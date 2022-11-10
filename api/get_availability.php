@@ -6,7 +6,7 @@ $date = $_GET['date'];
 $gifts = $conn->query("SELECT * FROM gifts");
 
 // get all max services bookings rows based on date
-$max_services_bookings = $conn->query("SELECT * FROM max_services_bookings WHERE date = '$date'");
+$max_services_bookings = $conn->query("SELECT * FROM max_services_bookings WHERE booking_date = '$date'");
 
 
 // get each gift availability
