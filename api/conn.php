@@ -1,6 +1,6 @@
 <?php
 require 'init_db.php';
-$servername = "localhost";
+$servername = "127.0.0.1";
 $username = "root";
 $password = "";
 $db_name = "experiences";
@@ -14,7 +14,7 @@ try {
    // set the PDO error mode to exception
    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-   echo "Database does not exist. Creating and populating it\n";
+   //"Database does not exist. Creating and populating it\n";
    $conn = create_db_if_not_existent($db_name, $servername, $username, $password);
 }
 
@@ -22,7 +22,7 @@ try {
 if ($conn->errorInfo()[0] != 0) {
    die("Connection failed: " . json_encode($conn->errorInfo()));
 }else{
-   echo "Connected successfully\n";
+   // "Connected successfully\n";
 }
 
 

@@ -9,7 +9,7 @@ function create_db_if_not_existent($db_name, $servername, $username, $password)
       $create_db_query = "CREATE DATABASE $db_name";
       $db_created_success = $conn->query($create_db_query);
       if ($db_created_success) {
-         echo "Database created successfully\n";
+         // "Database created successfully\n";
       } else {
          die("Error creating database: " . $conn->errorInfo());
       }
@@ -26,7 +26,7 @@ function create_db_if_not_existent($db_name, $servername, $username, $password)
       $tables_created_success = $conn->exec($sql);
       echo $tables_created_success;
       if ($tables_created_success !== false) {
-         echo "Tables created successfully\n";
+         // "Tables created successfully\n";
       } else {
          die("Error creating tables: " . json_encode($conn->errorInfo()));
       }
@@ -65,7 +65,7 @@ function create_db_if_not_existent($db_name, $servername, $username, $password)
          $sql = "INSERT INTO $db_name.gifts (name, price, cover_img, images, description) VALUES ('$name', '$price', '$cover_img', '$images', '$description')";
          $result = $conn->query($sql);
          if ($result) {
-            echo "Gift added successfully\n";
+            // "Gift added successfully\n";
          } else {
             die("Error adding gift: " . $conn->errorInfo());
          }
@@ -117,7 +117,7 @@ function create_db_if_not_existent($db_name, $servername, $username, $password)
          $sql = "INSERT INTO $db_name.reviews (customer_id, gift_id, text) VALUES ('$customer_id', '$gift_id', '$text')";
          $result = $conn->query($sql);
          if ($result) {
-            echo "Review added successfully\n";
+            // "Review added successfully\n";
          } else {
             die("Error adding review: " . json_encode($conn->errorInfo()));
          }
@@ -150,7 +150,7 @@ function create_db_if_not_existent($db_name, $servername, $username, $password)
          $sql = "INSERT INTO $db_name.customers (name, email, password) VALUES ('$name', '$email', '$password')";
          $result = $conn->query($sql);
          if ($result) {
-            echo "Customer added successfully\n";
+            // "Customer added successfully\n";
          } else {
             die("Error adding customer: " . json_encode($conn->errorInfo()));
          }
@@ -191,13 +191,13 @@ function create_db_if_not_existent($db_name, $servername, $username, $password)
                die("Error adding max service booking: " . json_encode($conn->errorInfo()));
             }
          }
-         echo "Max service booking added successfully for " . $date . "\n";
+         // "Max service booking added successfully for " . $date . "\n";
       }
    }
 
 
    $conn = new PDO("mysql:host=$servername", $username, $password);
-   echo "Database does not exist\n";
+   // "Database does not exist\n";
    // create database
    create_db($conn, $db_name);
    // now we can connect directly to the database

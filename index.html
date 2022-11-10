@@ -1,15 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Document</title>
-</head>
-<body>
-   
-</body>
-<script>
-   
-</script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Experience day gift</title>
+      <link rel="stylesheet" href="styles/main.css" />
+    <style>
+      #banner {
+        background: #fff;
+        text-align: center;
+        font-weight: 700;
+        letter-spacing: 0;
+        text-align: center;
+        color: #1c0950;
+        background-image: url(gift-icon.png);
+        background-position: center center;
+        background-repeat: no-repeat;
+        padding: 75px 0;
+        background-size: 206px;
+      }
+      #banner h1 {
+        font-size: 40px;
+        color: rgb(189, 154, 102);
+      }
+    </style>
+  </head>
+  <body>
+   <script type="module" src="scripts/main.js"></script>
+    <div id="banner">
+      <h1>Book an unforgivable day</h1>
+    </div>
+
+  
+  </body>
+  <script>
+      const banner = document.getElementById("banner");
+      fetch('api/get_availability.php')
+      .then(response => response.json())
+      .then(console.log)
+  </script>
 </html>
