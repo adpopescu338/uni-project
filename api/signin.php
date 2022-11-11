@@ -3,7 +3,7 @@ include 'conn.php';
 
 function signin ($email, $password){
    global $conn;
-   $customer = $conn->query("SELECT * FROM customers WHERE email = '$email' AND password = '$password'");
+   $customer = $conn->query("SELECT * FROM customer WHERE email = '$email' AND password = '$password'");
    if ($customer->rowCount() > 0) {
       // get customer id
       $customer = $customer->fetch(PDO::FETCH_ASSOC);
@@ -18,6 +18,7 @@ function signin ($email, $password){
       echo "<h3>Invalid email or password</h3><script>setTimeout(() => {window.location.href = '../login.html'}, 3000)</script>";
    }
 }
+
 
 if (isset($_POST['email']) && isset($_POST['password'])) {
    // get email and password

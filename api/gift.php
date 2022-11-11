@@ -35,4 +35,10 @@ foreach ($max_bookings as  $max ) {
     $gift['availability'][$date] = $available;
 }
 
+// get all reviews for this gift, join customer table to get customer name
+$sql = "SELECT review.*, customer.name FROM review JOIN customer ON review.customer_id = customer.id WHERE gift_id = $gift_id";
+$result = $conn->query($sql);
+$reviews = $result->fetchAll(PDO::FETCH_ASSOC);
+$gift['reviews'] = $reviews;
+
 echo json_encode($gift);
