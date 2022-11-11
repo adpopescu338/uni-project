@@ -1,10 +1,13 @@
 const giftId = new URLSearchParams(window.location.search).get("gift");
 const parent = document.querySelector("#gift-info");
+
 fetch(`api/gift.php?gift=${giftId}`)
   .then((r) => r.json())
   .then((gift) => {
-    if(!Object.values(window.session || []).length){
-        document.querySelector('button[type="submit"]').disabled = true
+    if (!Object.values(window.session || []).length) {
+      const bookButton = document.querySelector("form button");
+      bookButton.textContent = "Login to book";
+      document.querySelector("form").setAttribute("action", "login.html");
     }
 
     parent.classList.remove("hidden");
@@ -14,8 +17,8 @@ fetch(`api/gift.php?gift=${giftId}`)
     const content = `
     <h2>${name}</h2>
     <img src="${cover_img}" alt="${name}" />
-    <p>${description}</p>`
-    const fragment = document.createElement('div');
+    <p>${description}</p>`;
+    const fragment = document.createElement("div");
     fragment.innerHTML = content;
 
     //insert fragment asthe first child of parent
