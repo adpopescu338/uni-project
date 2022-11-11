@@ -62,7 +62,7 @@ function create_db_if_not_existent($db_name, $servername, $username, $password)
          $cover_img = $gift['cover_img'];
          $images = $gift['images'];
          $description = $gift['description'];
-         $sql = "INSERT INTO $db_name.gifts (name, price, cover_img, images, description) VALUES ('$name', '$price', '$cover_img', '$images', '$description')";
+         $sql = "INSERT INTO $db_name.gift (name, price, cover_img, images, description) VALUES ('$name', '$price', '$cover_img', '$images', '$description')";
          $result = $conn->query($sql);
          if ($result) {
             // "Gift added successfully\n";
@@ -75,7 +75,7 @@ function create_db_if_not_existent($db_name, $servername, $username, $password)
    function populate_reviews_table($conn, $db_name)
    {
       // get all gifts ids
-      $sql = "SELECT id FROM $db_name.gifts";
+      $sql = "SELECT id FROM $db_name.gift";
       $result = $conn->query($sql);
       $gifts_ids = array();
       if ($result->rowCount() > 0) {
@@ -87,7 +87,7 @@ function create_db_if_not_existent($db_name, $servername, $username, $password)
       }
 
       // get all customer ids
-      $sql = "SELECT id FROM $db_name.customers";
+      $sql = "SELECT id FROM $db_name.customer";
       $result = $conn->query($sql);
       $customers_ids = array();
       if ($result->rowCount() > 0) {
@@ -114,7 +114,7 @@ function create_db_if_not_existent($db_name, $servername, $username, $password)
          $customer_id = $review['customer_id'];
          $gift_id = $review['gift_id'];
          $text = $review['text'];
-         $sql = "INSERT INTO $db_name.reviews (customer_id, gift_id, text) VALUES ('$customer_id', '$gift_id', '$text')";
+         $sql = "INSERT INTO $db_name.review (customer_id, gift_id, text) VALUES ('$customer_id', '$gift_id', '$text')";
          $result = $conn->query($sql);
          if ($result) {
             // "Review added successfully\n";
@@ -147,7 +147,7 @@ function create_db_if_not_existent($db_name, $servername, $username, $password)
          $name = $customer['name'];
          $email = $customer['email'];
          $password = $customer['password'];
-         $sql = "INSERT INTO $db_name.customers (name, email, password) VALUES ('$name', '$email', '$password')";
+         $sql = "INSERT INTO $db_name.customer (name, email, password) VALUES ('$name', '$email', '$password')";
          $result = $conn->query($sql);
          if ($result) {
             // "Customer added successfully\n";
@@ -160,7 +160,7 @@ function create_db_if_not_existent($db_name, $servername, $username, $password)
    function populate_max_services_bookings_table($conn, $db_name)
    {
       // find all gifts ids
-      $sql = "SELECT id FROM $db_name.gifts";
+      $sql = "SELECT id FROM $db_name.gift";
       $result = $conn->query($sql);
       $gifts_ids = array();
       if ($result->rowCount() > 0) {

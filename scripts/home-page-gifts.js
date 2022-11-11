@@ -143,7 +143,9 @@ const createTop3 = (gifts) => {
       ${gift.description}
     </p>
     <div class="${buttonParentClass}">
-      <button>Book</button>
+      <a href="gift.html?gift=${gift.id}">
+        <button>Book</button>
+      </a>
     </div>
   </div>`
     );
@@ -157,7 +159,7 @@ const presentationContent = `Lorem ipsum dolor sit amet, consectetur adipiscing 
 const createGifts = (gifts) => {
   return gifts.reduce(
     (tot, gift) => `${tot}
-    <a href="">
+    <a href="gift.html?gift=${gift.id}">
         <h3>${gift.name}</h3>
         <img src="${gift.cover_img}" />
         <div style="text-align:center; position: absolute; bottom: 8px; width: 100%;">

@@ -1,12 +1,12 @@
-CREATE TABLE customers (
+CREATE TABLE customer (
          id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
          name VARCHAR(30) NOT NULL,
          phone VARCHAR(50),
-         email VARCHAR(50) NOT NULL,
+         email VARCHAR(50) NOT NULL UNIQUE,
          password VARCHAR(50) NOT NULL,
          reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP);
 
-CREATE TABLE gifts (
+CREATE TABLE gift (
          id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
          name VARCHAR(50) NOT NULL,
          price FLOAT NOT NULL,
@@ -14,14 +14,14 @@ CREATE TABLE gifts (
          cover_img VARCHAR(100) NOT NULL,
          images TEXT NOT NULL);
 
-CREATE TABLE bookings (
+CREATE TABLE booking (
          id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
          customer_id INT(6) UNSIGNED NOT NULL,
          gift_id INT(6) UNSIGNED NOT NULL,
          booking_date DATE NOT NULL);
 
 
-CREATE TABLE reviews (
+CREATE TABLE review (
          id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
          customer_id INT(6) UNSIGNED NOT NULL,
          gift_id INT(6) UNSIGNED NOT NULL,
