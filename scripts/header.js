@@ -91,7 +91,8 @@ export const updateHeader = () => {
   menuIcon.innerHTML = `
     <span> &#9881; </span>
     <div id="menu">
-        <a href="index.html">Change password</a>
+        <a href="change-password.html">Change password</a>
+        <a href="my-bookings.php">My Bookings</a>
         <a href="api/signout.php">Signout</a>
     </div>
     `;

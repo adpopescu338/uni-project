@@ -1,3 +1,12 @@
+<?php
+include __DIR__ . "/api/conn.php";
+session_start();
+// get customer bookings
+$customer_id = $_SESSION['id'];
+
+// get customer bookings, join with gift table on booking.gift_id = gift.id
+$bookings = $conn->query("SELECT * FROM booking JOIN gift ON booking.gift_id = gift.id WHERE customer_id = $customer_id");
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,21 +15,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Experience day gift</title>
     <link rel="stylesheet" href="styles/main.css" />
+    <style>
+        .bookings{
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            align-items: center;
+            gap:20px;
+            margin-top: 50px;
+        }
+
+        .booking{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid grey;
+            border-radius: 8px;
+            width: 80%;
+            box-shadow: 0 0 80px blanchedalmond inset;
+        }
+        .booking img{
+            width: 300px;
+            box-shadow: 0 0 5px black;
+            border-radius: 8px;
+        }
+
+        h1{
+            text-align: center;
+        }
+        </style>
   </head>
   <body>
+    <h1>My bookings</h1>
     <script type="module" src="scripts/main.js"></script>
+    <div class="bookings">
+    <?php
+if ($bookings->rowCount() === 0) {
+    echo "<h3>You have no bookings</h3>";
 
-    <div id="content">
-      <div class="loader"></div>
-
-      <div id="gift-info" class="hidden">
-        <form action="api/book.php">
-          <input name="gift_id" value="" type="hidden">
-          <select name="date"></select>
-          <button type="submit">Book</button>
-        </form>
-      </div>
-    </div>
+} else {
+    $bookings = $bookings->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($bookings as $booking) {
+        echo "<div class='booking'>
+        <h3>{$booking['name']}</h3>
+        <img src='{$booking['cover_img']}' alt='{$booking['name']}' />
+        <p>{$booking['description']}</p>
+        <p>{$booking['booking_date']}</p>
+        </div>
+        ";
+    }
+}
+?>
+</div>
   </body>
-  <script type="module" src="scripts/gift.js"></script>
+
 </html>

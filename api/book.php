@@ -22,7 +22,7 @@ if ($bookings->rowCount() < $max_bookings) {
    // book
    $booked = $conn->query("INSERT INTO booking (customer_id, gift_id, booking_date) VALUES ('$customer_id', '$gift_id', '$booking_date')");
    if ($booked) {
-      echo "<h3>Booking successful</h3><script>setTimeout(() => {window.location.href = '../index.html'}, 3000)</script>";
+      echo "<h3>Booking successful</h3><script>setTimeout(() => {window.location.href = '../my-bookings.php'}, 3000)</script>";
    } else {
       echo "<h3>Failed to book</h3><script>setTimeout(() => history.back() 3000)</script>";
    }
