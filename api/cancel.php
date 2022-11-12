@@ -6,7 +6,6 @@ session_start();
 $customer_id = $_SESSION['id'];
 // delete booking
 $query = "DELETE FROM booking WHERE id = $booking_id AND customer_id = $customer_id";
-echo $query;
 $conn->query($query);
 
 
