@@ -14,5 +14,5 @@ if ($conn->errorInfo()[0] != 0) {
     die("Connection failed: " . json_encode($conn->errorInfo()));
 }
 
-echo "<h3>Booking cancelled</h3><script>setTimeout(() => {window.location.href = '../my-bookings.php'}, 7000)</script>";
+echo "<h3>Booking cancelled</h3><script>setTimeout(() => {window.location.href = '../my-bookings.php'}, 2000)</script>";
 ?>
