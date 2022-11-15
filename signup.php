@@ -18,7 +18,7 @@ if ($registered) {
    $_SESSION['user_name'] = $name;
    $_SESSION['email_address'] = $email;
    // redirect to home page
-   echo "<h1>Registered successfully</h1><script>setTimeout(() => {window.location.href = '../index.html'}, 2000)</script>";
+   header('Location: index.php');
 } else {
-   die("Connection failed: " . json_encode($conn->errorInfo()));
+   die("Connection failed" );
 }

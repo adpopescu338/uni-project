@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . "conn.php";
+include "conn.php";
 session_start();
 // get customer bookings
 $customer_id = $_SESSION['user_id'];
