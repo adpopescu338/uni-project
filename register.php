@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Experience day gift</title>
-    <link rel="stylesheet" href="styles/main.css" />
-    <link rel="stylesheet" href="styles/header.css" />
-    <link rel="stylesheet" href="styles/footer.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/footer.css" />
     <style>
         h1{
             text-align: center;
@@ -55,22 +55,21 @@
         <li><a href="index.php">Home</a></li>
         <li><a href="login.php">Login</a></li>
         <li><a href="register.php">Register</a></li>
-          <?php
-  session_start();
-  if (isset($_SESSION['id'])) {
-      echo "<li id='menu-icon'>
-              <span> ⚙ </span>
-              <div id='menu'>
-                <a href='my-bookings.php'>Bookings</a>
-                <a href='api/signout.php'>Logout</a>
-              </div>
-            </li>";
-  }
-  ?>
+        <?php
+session_start();
+if (isset($_SESSION['user_id'])) {
+    echo "<li>
+            <a href='my-bookings.php'>Bookings</a>
+          </li>
+          <li style='tranform: '>
+            <a style='display:flex;' href='signout.php'><img src='logout.svg' style='width:25px;' /></a>
+          </li>";
+}
+?>
         </ul>
       </nav>
     <h1>Register</h1>
-    <form method="post" action="api/signup.php">
+    <form method="post" action="signup.php">
         <input required placeholder="Name" name="name" />
         <input required placeholder="Email address" name="email" type="email" />
         <input placeholder="Phone number" name="phone" type="number" />

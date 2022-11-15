@@ -14,9 +14,9 @@ if ($registered) {
    $customer_id = $conn->lastInsertId();
    // start session
    session_start();
-   $_SESSION['id'] = $customer_id;
-   $_SESSION['name'] = $name;
-   $_SESSION['email'] = $email;
+   $_SESSION['user_id'] = $customer_id;
+   $_SESSION['user_name'] = $name;
+   $_SESSION['email_address'] = $email;
    // redirect to home page
    echo "<h1>Registered successfully</h1><script>setTimeout(() => {window.location.href = '../index.html'}, 2000)</script>";
 } else {

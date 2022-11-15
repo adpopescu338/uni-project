@@ -1,11 +1,11 @@
 <?php
-include __DIR__ . "/api/conn.php";
+include __DIR__ . "conn.php";
 session_start();
 // get customer bookings
-$customer_id = $_SESSION['id'];
+$customer_id = $_SESSION['user_id'];
 
 // get customer bookings, join with gift table on booking.gift_id = gift.id
-$bookings = $conn->query("SELECT booking.gift_id, booking.booking_date, booking.id  as booking_id, gift.name, gift.description, gift.cover_img FROM booking JOIN gift ON booking.gift_id = gift.id WHERE customer_id = $customer_id");
+$bookings = $conn->query("SELECT booking.gift_id, booking.booking_date, booking.id  as booking_id, gift.name, gift.description, gift.cover_img, gift.price FROM booking JOIN gift ON booking.gift_id = gift.id WHERE customer_id = $customer_id");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,39 +14,26 @@ $bookings = $conn->query("SELECT booking.gift_id, booking.booking_date, booking.
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Experience day gift</title>
-    <link rel="stylesheet" href="styles/main.css" />
-    <link rel="stylesheet" href="styles/header.css" />
-    <link rel="stylesheet" href="styles/footer.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/footer.css" />
     <style>
-        .bookings{
-            display: flex;
-            justify-content: space-between;
-            flex-direction: column;
-            align-items: center;
-            gap:20px;
-            margin-top: 50px;
-        }
+    table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
 
-        .booking{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border: 1px solid grey;
-            border-radius: 8px;
-            width: 80%;
-            box-shadow: 0 0 80px blanchedalmond inset;
-            overflow: hidden;
-        }
-        .booking img{
-            width: 300px;
-            box-shadow: 0 0 5px black;
-            border-radius: 8px;
-        }
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
 
-        h1{
-            text-align: center;
-        }
-        </style>
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
   </head>
   <body>
   <nav>
@@ -56,38 +43,46 @@ $bookings = $conn->query("SELECT booking.gift_id, booking.booking_date, booking.
         <li><a href="register.php">Register</a></li>
         <?php
 session_start();
-if (isset($_SESSION['id'])) {
-    echo "<li id='menu-icon'>
-            <span> ⚙ </span>
-            <div id='menu'>
-              <a href='my-bookings.php'>Bookings</a>
-              <a href='api/signout.php'>Logout</a>
-            </div>
+if (isset($_SESSION['user_id'])) {
+    echo "<li>
+            <a href='my-bookings.php'>Bookings</a>
+          </li>
+          <li style='tranform: '>
+            <a style='display:flex;' href='signout.php'><img src='logout.svg' style='width:25px;' /></a>
           </li>";
 }
 ?>
       </ul>
     </nav>
-    <h1>My bookings</h1>
-    <div class="bookings">
+    <h1 style="text-align: center;">My bookings</h1>
+
     <?php
 if ($bookings->rowCount() === 0) {
     echo "<h3>You have no bookings</h3>";
 
 } else {
     $bookings = $bookings->fetchAll(PDO::FETCH_ASSOC);
+    echo "<table>
+    
+    <tr>
+        <th>Gift</th>
+        <th>Booking date</th>
+        <th>Description</th>
+        <th>Price</th>
+    </tr>";
+        
     foreach ($bookings as $booking) {
-        echo "<div class='booking'>
-        <h3>{$booking['name']}</h3>
-        <img src='{$booking['cover_img']}' alt='{$booking['name']}' />
-        <p>{$booking['description']}</p>
-        <p>{$booking['booking_date']}</p>
-        </div>
+        echo "<tr>
+        <td>{$booking['name']}</td>
+        <td>{$booking['booking_date']}</td>
+        <td>{$booking['description']}</td>
+        <td>£{$booking['price']}</td>
+        </tr>
         ";
     }
+    echo "</table>";
 }
 ?>
-</div>
 
 <footer>
       <p>© 2022 Experiences.com</p>

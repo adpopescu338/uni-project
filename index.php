@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Experience day gift</title>
-    <link rel="stylesheet" href="styles/main.css" />
-    <link rel="stylesheet" href="styles/header.css" />
-    <link rel="stylesheet" href="styles/footer.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/footer.css" />
     <style>
       #banner {
         background: #fff;
@@ -123,13 +123,12 @@
         <li><a href="register.php">Register</a></li>
         <?php
 session_start();
-if (isset($_SESSION['id'])) {
-    echo "<li id='menu-icon'>
-            <span> ⚙ </span>
-            <div id='menu'>
-              <a href='my-bookings.php'>Bookings</a>
-              <a href='api/signout.php'>Logout</a>
-            </div>
+if (isset($_SESSION['user_id'])) {
+    echo "<li>
+            <a href='my-bookings.php'>Bookings</a>
+          </li>
+          <li style='tranform: '>
+            <a style='display:flex;' href='signout.php'><img src='logout.svg' style='width:25px;' /></a>
           </li>";
 }
 ?>
@@ -144,7 +143,7 @@ if (isset($_SESSION['id'])) {
 </p>
 
 <?php
-include 'api/conn.php';
+include 'conn.php';
 $gifts = $conn->query("SELECT * FROM gift");
 // extracts all gifts
 $gifts = $gifts->fetchAll(PDO::FETCH_ASSOC);
@@ -157,7 +156,7 @@ foreach ($gifts as $gift) {
     {$gift['description']}
   </p>
   <div class='buttonParent'>
-    <a href='gift.html?gift={$gift['id']}'>
+    <a href='experience.php?id={$gift['id']}'>
       <button>Book for £{$gift['price']}</button>
     </a>
   </div>

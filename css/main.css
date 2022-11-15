@@ -1,7 +1,3 @@
-* {
-  font-family: fantasy;
-  box-sizing: border-box;
-}
 html,
 body {
   margin: 0;
@@ -28,8 +24,4 @@ body {
   100% {
     transform: rotate(360deg);
   }
-}
-
-.hidden {
-  display: none;
 }

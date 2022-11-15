@@ -1,3 +1,40 @@
+<?php
+include 'conn.php';
+
+// get giftId from request
+$experience_id = $_GET['id'];
+
+// find gift by giftId
+$sql = "SELECT * FROM gift WHERE id = $experience_id";
+$result = $conn->query($sql);
+$gift = $result->fetch(PDO::FETCH_ASSOC);
+
+// get all bookings from database for this gift where date > today
+$sql = "SELECT * FROM booking WHERE gift_id = $experience_id AND booking_date > CURDATE()";
+$result = $conn->query($sql);
+$bookings = $result->fetchAll(PDO::FETCH_ASSOC);
+
+// find gift max bookings
+$sql = "SELECT * FROM max_services_bookings WHERE gift_id = $experience_id AND booking_date > CURDATE()";
+$result = $conn->query($sql);
+// pdo fetch all
+$max_bookings = $result->fetchAll(PDO::FETCH_ASSOC);
+
+$availability = array();
+
+// loop through all bookings and check if there is a booking for each date
+foreach ($max_bookings as $max) {
+    $date = $max['booking_date'];
+
+    // check if there is a booking for this date using count
+    $sql = "SELECT COUNT(*) FROM booking WHERE gift_id = $experience_id AND booking_date = $date";
+    $result = $conn->query($sql);
+    $count = $result->fetch(PDO::FETCH_ASSOC);
+
+    $available = $count['COUNT(*)'] < $max['max_bookings'];
+    $gift['availability'][$date] = $available;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,9 +42,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Experience day gift</title>
-    <link rel="stylesheet" href="styles/main.css" />
-    <link rel="stylesheet" href="styles/header.css" />
-    <link rel="stylesheet" href="styles/footer.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/footer.css" />
 
     <style>
       #container {
@@ -107,26 +144,40 @@
         <li><a href="register.php">Register</a></li>
         <?php
 session_start();
-if (isset($_SESSION['id'])) {
-    echo "<li id='menu-icon'>
-            <span> ⚙ </span>
-            <div id='menu'>
-              <a href='my-bookings.php'>Bookings</a>
-              <a href='api/signout.php'>Logout</a>
-            </div>
+if (isset($_SESSION['user_id'])) {
+    echo "<li>
+            <a href='my-bookings.php'>Bookings</a>
+          </li>
+          <li style='tranform: '>
+            <a style='display:flex;' href='signout.php'><img src='logout.svg' style='width:25px;' /></a>
           </li>";
 }
 ?>
       </ul>
     </nav>
     <div id="content">
-      <div class="loader"></div>
 
-      <div id="gift-info" class="hidden">
-        <form action="api/book.php">
-          <input name="gift_id" value="" type="hidden" />
-          <select name="date"></select>
-          <button type="submit">Book</button>
+      <div id="gift-info">
+      <div>
+
+<?php
+echo "<h2>{$gift['name']}</h2>
+<img src='{$gift['cover_img']}' alt='{$gift['name']}' />
+<p>{$gift['description']}</p>"
+?>
+</div>
+        <form action="<?php echo isset($_SESSION['user_id']) ? 'book.php' : 'login.php' ?>"">
+          <input name="id" value=<?php echo $gift['id']; ?> type="hidden" />
+          <select name="day">
+            <?php
+foreach ($gift['availability'] as $date => $available) {
+    if ($available) {
+        echo "<option value='$date'>$date</option>";
+    }
+}
+?>
+          </select>
+          <button type="submit"><?php echo isset($_SESSION['user_id']) ? 'Book for £'.$gift['price'] : 'Sign in to book' ?></button>
         </form>
       </div>
     </div>
@@ -135,5 +186,4 @@ if (isset($_SESSION['id'])) {
       <p>© 2022 Experiences.com</p>
       </footer>
   </body>
-  <script type="module" src="scripts/gift.js"></script>
 </html>
