@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Experience day gift</title>
     <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/header.css" />
+    <link rel="stylesheet" href="styles/footer.css" />
 
     <style>
       #container {
@@ -98,8 +100,25 @@
     </style>
   </head>
   <body>
-    <script type="module" src="scripts/main.js"></script>
-
+    <nav>
+      <ul>
+      <li><a href="index.php">Home</a></li>
+        <li><a href="login.php">Login</a></li>
+        <li><a href="register.php">Register</a></li>
+        <?php
+session_start();
+if (isset($_SESSION['id'])) {
+    echo "<li id='menu-icon'>
+            <span> ⚙ </span>
+            <div id='menu'>
+              <a href='my-bookings.php'>Bookings</a>
+              <a href='api/signout.php'>Logout</a>
+            </div>
+          </li>";
+}
+?>
+      </ul>
+    </nav>
     <div id="content">
       <div class="loader"></div>
 
@@ -111,6 +130,10 @@
         </form>
       </div>
     </div>
+
+    <footer>
+      <p>© 2022 Experiences.com</p>
+      </footer>
   </body>
   <script type="module" src="scripts/gift.js"></script>
 </html>

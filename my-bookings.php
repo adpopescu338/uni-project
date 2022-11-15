@@ -15,6 +15,8 @@ $bookings = $conn->query("SELECT booking.gift_id, booking.booking_date, booking.
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Experience day gift</title>
     <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/header.css" />
+    <link rel="stylesheet" href="styles/footer.css" />
     <style>
         .bookings{
             display: flex;
@@ -44,28 +46,29 @@ $bookings = $conn->query("SELECT booking.gift_id, booking.booking_date, booking.
         h1{
             text-align: center;
         }
-
-        .booking button{
-            width: 100%;
-            padding:5px 0;
-            background-color: #ff2222;
-            color: white;
-            border: none;
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        form{
-            width:100%;
-        }
-        .booking button:hover{
-            background-color: #c81515;
-        }
         </style>
   </head>
   <body>
+  <nav>
+      <ul>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="login.php">Login</a></li>
+        <li><a href="register.php">Register</a></li>
+        <?php
+session_start();
+if (isset($_SESSION['id'])) {
+    echo "<li id='menu-icon'>
+            <span> ⚙ </span>
+            <div id='menu'>
+              <a href='my-bookings.php'>Bookings</a>
+              <a href='api/signout.php'>Logout</a>
+            </div>
+          </li>";
+}
+?>
+      </ul>
+    </nav>
     <h1>My bookings</h1>
-    <script type="module" src="scripts/main.js"></script>
     <div class="bookings">
     <?php
 if ($bookings->rowCount() === 0) {
@@ -79,15 +82,15 @@ if ($bookings->rowCount() === 0) {
         <img src='{$booking['cover_img']}' alt='{$booking['name']}' />
         <p>{$booking['description']}</p>
         <p>{$booking['booking_date']}</p>
-        <form action='api/cancel.php' method='get'>
-            <button type='submit'>Cancel</button>
-            <input type='hidden' name='id' value='{$booking['booking_id']}' />
-        </form>
         </div>
         ";
     }
 }
 ?>
 </div>
+
+<footer>
+      <p>© 2022 Experiences.com</p>
+      </footer>
   </body>
 </html>

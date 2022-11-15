@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Experience day gift</title>
     <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/header.css" />
+    <link rel="stylesheet" href="styles/footer.css" />
     <style>
         h1{
             text-align: center;
@@ -48,14 +50,36 @@
     </style>
   </head>
   <body>
-    <script type="module" src="scripts/main.js"></script>
-    <h1>Login</h1>
-    <form method="post" action="api/signin.php">
+    <nav>
+        <ul>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="login.php">Login</a></li>
+        <li><a href="register.php">Register</a></li>
+          <?php
+  session_start();
+  if (isset($_SESSION['id'])) {
+      echo "<li id='menu-icon'>
+              <span> ⚙ </span>
+              <div id='menu'>
+                <a href='my-bookings.php'>Bookings</a>
+                <a href='api/signout.php'>Logout</a>
+              </div>
+            </li>";
+  }
+  ?>
+        </ul>
+      </nav>
+    <h1>Register</h1>
+    <form method="post" action="api/signup.php">
+        <input required placeholder="Name" name="name" />
         <input required placeholder="Email address" name="email" type="email" />
+        <input placeholder="Phone number" name="phone" type="number" />
         <input required placeholder="Password" name="password" type="password" />
         <input type="submit" />
     </form>
 
-
+    <footer>
+        <p>© 2022 Experiences.com</p>
+        </footer>
   </body>
 </html>
