@@ -1,0 +1,12 @@
+<files env>
+    deny from all
+</files>
+<files conn.php>
+    deny from all
+</files>
+<files create_tables_queries.sql>
+    deny from all
+</files>
+<files init_db.php>
+    deny from all
+</files>
