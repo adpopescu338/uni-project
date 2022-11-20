@@ -34,11 +34,15 @@ nav {
   #menu-icon:hover {
     font-size: 50px;
   }
-  #menu-icon > span {
+  #menu-icon > button {
     position: absolute;
     left: -30px;
     top: -10px;
     z-index: 100;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 40px;
   }
 
   #menu {
@@ -89,7 +93,7 @@ export const updateHeader = () => {
   const menuIcon = document.createElement("li");
   menuIcon.setAttribute("id", "menu-icon");
   menuIcon.innerHTML = `
-    <span> &#9881; </span>
+    <button> &#9881; </button>
     <div id="menu">
         <a href="change-password.html">Change password</a>
         <a href="my-bookings.php">My Bookings</a>
@@ -108,4 +112,9 @@ export const updateHeader = () => {
   menuIcon.addEventListener("mouseleave", () => {
     menu.style.display = "none";
   });
+
+  menuIcon.addEventListener("click", () => {
+    menu.style.display = "flex";
+  });
+
 };

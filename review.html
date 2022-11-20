@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Experience day gift</title>
+    <link rel="stylesheet" href="styles/main.css" />
+    <style>
+        h1{
+            text-align: center;
+        }
+        form{
+            width: 90%;
+            margin: 0 auto;
+            border: 1px solid black;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            padding: 50px 10px 30px 10px;
+            gap: 15px;
+        }
+        input, textarea{
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type=submit] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.5s ease;
+        }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+        #images-container {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        } 
+
+        #images-container img {
+            width: 300px;
+            border-radius: 9px;
+            box-shadow: 0 0 7px black;
+        }
+
+    </style>
+  </head>
+  <body>
+    <script type="module" src="scripts/main.js"></script>
+    <h1>Review </h1>
+    <form method="post" action="api/create-review.php" enctype="multipart/form-data">
+        <input type="hidden" id="gift-id" name="gift_id"/>
+        <label for="review">How wasit like?</label>
+        <textarea name="text" id="review" cols="30" rows="10"></textarea>
+        <input name="images[]" type="file" accept="image/*" multiple />
+        <div id="images-container">
+
+        </div>
+        <input type="submit" />
+    </form>
+
+
+<script>
+    // get name and id from url
+    const urlParams = new URLSearchParams(window.location.search);
+    const name = urlParams.get('name');
+    const id = urlParams.get('id');
+
+    document.querySelector('h1').textContent = `Review ${name}`;
+    document.querySelector('#gift-id').value = id;
+
+    // addevent listener to the file input
+    const fileInput = document.querySelector('input[type="file"]');
+    fileInput.addEventListener('change', (event) => {
+        const files = event.target.files;
+        const imagesContainer = document.querySelector('#images-container');
+        imagesContainer.innerHTML = '';
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(file);
+            imagesContainer.appendChild(img);
+        }
+    });
+
+</script>
+  </body>
+</html>

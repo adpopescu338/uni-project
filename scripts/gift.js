@@ -8,7 +8,12 @@ fetch(`api/gift.php?gift=${giftId}`)
       const bookButton = document.querySelector("form button");
       bookButton.textContent = "Login to book";
       document.querySelector("form").setAttribute("action", "login.html");
+    }else{
+      const reviewButton = document.querySelector('#review-link')
+      reviewButton.parentElement.classList.remove('hidden')
+      reviewButton.setAttribute('href', `review.html?id=${giftId}&name=${gift.name}`)
     }
+
     document.querySelector('input[name="gift_id"]').value = giftId;
     parent.classList.remove("hidden");
     document.querySelector("#content .loader").remove();
@@ -48,6 +53,8 @@ fetch(`api/gift.php?gift=${giftId}`)
     reviews.classList.add("reviews");
 
     const reviewsContent = gift.reviews.reduce((tot, review) => {
+      const images = review.images ? JSON.parse(review.images) : []
+      const imagesContent=images.map((img) => `<img src="images/${img}" alt="Review image" />`).join("")
       return (
         tot +
         `
@@ -56,6 +63,9 @@ fetch(`api/gift.php?gift=${giftId}`)
           Math.random() * 200
         )}" alt="Avatar" class="avatar">${review.name}</h3>
         <p>${review.text}</p>
+        <div class="images-container">
+          ${imagesContent}
+        </div>
       </div>
       `
       );
