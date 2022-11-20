@@ -1,5 +1,17 @@
 <?php
 
+function make_images()
+{
+   $random_nr  = rand(1, 5);
+   $images = array();
+   for ($i = 0; $i < $random_nr; $i++) {
+      // push random image to array
+      array_push($images, "https://picsum.photos/" . rand(200, 400));
+   }
+
+   return json_encode($images);
+}
+
 // create db if doesn't exist and populate it
 function create_db_if_not_existent($db_name, $servername, $username, $password)
 {
@@ -34,18 +46,6 @@ function create_db_if_not_existent($db_name, $servername, $username, $password)
 
    function populate_gifts_table($conn, $db_name)
    {
-
-      function make_images()
-      {
-         $random_nr  = rand(1, 5);
-         $images = array();
-         for ($i = 0; $i < $random_nr; $i++) {
-            // push random image to array
-            array_push($images, "https://picsum.photos/" . rand(200, 400));
-         }
-
-         return json_encode($images);
-      }
 
       // array of gift names
       $gift_names = ['Spa', 'Hot air baloon flight', 'Dinner at a Michelin star restaurant', 'Helicopter ride', 'Private jet ride', 'Yacht ride', 'Private island'];
@@ -105,7 +105,7 @@ function create_db_if_not_existent($db_name, $servername, $username, $password)
          $gift_id = $gifts_ids[array_rand($gifts_ids)];
          $customer_id = $customers_ids[array_rand($customers_ids)];
          $text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.";
-         $review = array('gift_id' => $gift_id, 'customer_id' => $customer_id, 'text' => $text);
+         $review = array('gift_id' => $gift_id, 'customer_id' => $customer_id, 'text' => $text, 'images' => make_images());
          array_push($reviews, $review);
       }
 

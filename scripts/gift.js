@@ -32,6 +32,16 @@ fetch(`api/gift.php?gift=${giftId}`)
     //insert fragment asthe first child of parent
     parent.insertBefore(fragment, parent.firstChild);
 
+    const giftImagesContainer = document.querySelector("#gift-images");
+    const images = JSON.parse(gift.images);
+
+    images.forEach((image) => {
+      const img = document.createElement("img");
+      img.src = image;
+      img.alt = name;
+      giftImagesContainer.appendChild(img);
+    });
+
     const dates = Object.entries(gift.availability).reduce(
       (tot, [date, available]) => {
         if (Math.random() < 0.5) {
