@@ -25,7 +25,7 @@ CREATE TABLE review (
          id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
          customer_id INT(6) UNSIGNED NOT NULL,
          gift_id INT(6) UNSIGNED NOT NULL,
-         text TEXT NOT NULL
+         text TEXT NOT NULL,
          images TEXT NULL);
 
 CREATE TABLE max_services_bookings(

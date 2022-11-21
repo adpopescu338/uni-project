@@ -8,10 +8,13 @@ fetch(`api/gift.php?gift=${giftId}`)
       const bookButton = document.querySelector("form button");
       bookButton.textContent = "Login to book";
       document.querySelector("form").setAttribute("action", "login.html");
-    }else{
-      const reviewButton = document.querySelector('#review-link')
-      reviewButton.parentElement.classList.remove('hidden')
-      reviewButton.setAttribute('href', `review.html?id=${giftId}&name=${gift.name}`)
+    } else {
+      const reviewButton = document.querySelector("#review-link");
+      reviewButton.parentElement.classList.remove("hidden");
+      reviewButton.setAttribute(
+        "href",
+        `review.html?id=${giftId}&name=${gift.name}`
+      );
     }
 
     document.querySelector('input[name="gift_id"]').value = giftId;
@@ -63,8 +66,13 @@ fetch(`api/gift.php?gift=${giftId}`)
     reviews.classList.add("reviews");
 
     const reviewsContent = gift.reviews.reduce((tot, review) => {
-      const images = review.images ? JSON.parse(review.images) : []
-      const imagesContent=images.map((img) => `<img src="images/${img}" alt="Review image" />`).join("")
+
+      const images = review.images ? JSON.parse(review.images) : [];
+      const imagesContent = images.map((img) => {
+        const src = img.startsWith("http") ? img : `images/${img}`;
+        return `<img src="${src}" alt="Review image" />`;
+      });
+
       return (
         tot +
         `

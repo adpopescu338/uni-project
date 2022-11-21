@@ -33,7 +33,6 @@ $customer_id = $_SESSION['id'];
 // insert review
 $encoded_images = json_encode($images);
 $sql = "INSERT INTO review (customer_id, gift_id, text, images) VALUES ('$customer_id', '$gift_id', '$text', '$encoded_images')";
-echo $sql;
 
 try{
     $conn->exec($sql);
